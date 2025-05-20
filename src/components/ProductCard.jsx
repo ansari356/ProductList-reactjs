@@ -1,7 +1,15 @@
 import React from 'react';
 import "../styles/productcard.css";
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../store/slices/cartSlice';
+const ProductCard = ( props ) => {
+  const { product, onViewDetails } = props;
+  
+  const dispatch = useDispatch();
 
-const ProductCard = ({ product, onAddToCart, onViewDetails }) => {
+
+
+
   return (
     <div className="product-card">
       <div className="product-image-wrapper" onClick={onViewDetails}>
@@ -23,7 +31,14 @@ const ProductCard = ({ product, onAddToCart, onViewDetails }) => {
       <div className="product-footer">
         <span className="product-price">${product.price}</span>
         <button 
-          onClick={() => onAddToCart(product)} 
+          onClick={() => dispatch(addToCart(product))
+          } 
+          // why product not product.id ? 
+          // because product is an object and id is a property of the object
+          // and we are passing the whole object to the addToCart function
+          // so we can access the id property inside the addToCart function
+          // and we are not passing the id property directly
+          // because we need the whole object to add to the cart
           disabled={product.stock === 0}
           className={`add-to-cart ${product.stock === 0 ? 'disabled' : ''}`}
         >

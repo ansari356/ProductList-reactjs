@@ -2,14 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axiosInstance from "../apis/config";
 import "../styles/productdetails.css";
-
-const ProductDetails = ({ addToCart }) => {
+import { useDispatch } from "react-redux";
+import { addToCartByQuantity } from "../store/slices/cartSlice";
+const ProductDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [quantity, setQuantity] = useState(1);
+const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchProductDetails = async () => {
@@ -97,7 +99,18 @@ const ProductDetails = ({ addToCart }) => {
 
           <div className="action-buttons">
             <button
-              onClick={() => addToCart({ ...product, quantity })}
+              onClick={() =>  dispatch(addToCartByQuantity({ ...product, quantity }))}
+              // i want to add to cart and increase counter in cart icon
+              // and also add the product to the cart
+              // why ... ? 
+              // because we are spreading the product object and adding the quantity to it
+              // and we are passing the product object to the addToCart function
+              // why not product ? 
+              // because we want to add the quantity to the product object
+              // what happen if we put product only ? 
+              // then we will not be able to add the quantity to the product object
+              // and we will not be able to add the product to the cart
+              // and we will not be able to see the quantity in the cart
               className="btn add-to-cart"
               disabled={product.stock === 0}
             >

@@ -28,6 +28,8 @@
 
 .stock-badge.in-stock {
   background-color: #16a34a;
+  color: #fff ;
+  font-weight: 600;
 }
 
 .stock-badge.out-of-stock {

@@ -4,12 +4,14 @@ import ProductCard from "../components/ProductCard";
 import axiosInstance from "../apis/config";
 import { useNavigate } from "react-router-dom";
 import '../styles/productlist.css';
-// ProductsList Component
 
   // ProductsList Component
-const ProductsList = ({ addToCart }) => {
+const ProductsList = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  // mean we are initializing the loading state to true 
+  // and we are setting the loading state to false when the data is fetched
+  // and we are using the loading state to show the loading spinner
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
@@ -44,6 +46,10 @@ useEffect(() => {
     try {
       setLoading(true);
       const skip = (page - 1) * limit;
+      // mean we are calculating the skip value based on the current page and limit
+      // and we are using the skip value to fetch the products from the API
+      // and we are using the limit value to fetch the products from the API
+      // and we are using the page value to fetch the products from the API
 
       const response = await axiosInstance.get('/products', {
         params: {
@@ -79,7 +85,6 @@ useEffect(() => {
           <div className="product-item" key={product.id}>
             <ProductCard 
               product={product} 
-              onAddToCart={addToCart} 
               onViewDetails={() => handleViewProduct(product.id)}
             />
           </div>

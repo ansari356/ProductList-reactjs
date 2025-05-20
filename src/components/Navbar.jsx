@@ -1,8 +1,19 @@
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useContext } from "react";
+import { LanguageContext } from "../context/LanguageContext";
 
+const Navbar = () => {
+  const totalItems = useSelector((state) => state.cart.totalQuantity);
 
-const Navbar = ({ cartCount }) => {
+  const { lang, setLang } = useContext(LanguageContext);
+
+  const handleChangeLanguage = (e) => {
+    setLang(e.target.value);
+  };
+
   
+
    return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
@@ -36,14 +47,15 @@ const Navbar = ({ cartCount }) => {
               <circle cx="9" cy="21" r="1"></circle>
               <circle cx="20" cy="21" r="1"></circle>
               <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-            </svg>
-            {cartCount > 0 && (
-              <span className="absolute -top-2 -right-2 bg-green-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
-                {cartCount}
-              </span>
-            )}
+            </svg> {totalItems}
+
           </Link>
             
+             <select className="form-select w-auto" value={lang} onChange={handleChangeLanguage}>
+        <option value="en">English</option>
+        <option value="ar">العربية</option>
+                </select>
+
           </div>
         </div>
       </div>
